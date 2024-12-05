@@ -12,7 +12,6 @@ namespace TextEditor.Controllers
     public class DocsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public DocsController(ApplicationDbContext context)
         {
             _context = context;
@@ -32,6 +31,8 @@ namespace TextEditor.Controllers
         // GET: Docs/Create
         public IActionResult Create()
         {
+            ViewBag.TinyMceApikey = GetTinyMceApikey();
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -49,7 +50,9 @@ namespace TextEditor.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
- 
+
+            ViewBag.TinyMceApikey = GetTinyMceApikey(); 
+
             return View(doc);
         }
 
@@ -71,6 +74,8 @@ namespace TextEditor.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.TinyMceApikey = GetTinyMceApikey();
 
             return View(doc);
         }
@@ -107,7 +112,11 @@ namespace TextEditor.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.TinyMceApikey = GetTinyMceApikey();
+
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", doc.UserId);
+
             return View(doc);
         }
 
@@ -133,6 +142,8 @@ namespace TextEditor.Controllers
                 return NotFound();
             }
 
+            ViewBag.TinyMceApikey = GetTinyMceApikey();
+
             return View(doc);
         }
 
@@ -154,6 +165,16 @@ namespace TextEditor.Controllers
         private bool DocExists(int id)
         {
             return _context.Docs.Any(e => e.Id == id);
+        }
+
+        protected string GetTinyMceApikey()
+        {
+            var tinyMceApikey = Environment.GetEnvironmentVariable("TINYMCE_API_KEY");
+            if (string.IsNullOrEmpty(tinyMceApikey))
+            {
+                throw new InvalidOperationException("The TinyMCE API key is not in the environment variables.");
+            }
+            return tinyMceApikey;
         }
     }
 }

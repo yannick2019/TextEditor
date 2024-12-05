@@ -23,7 +23,9 @@ namespace TextEditor.Controllers
             var applicationDbContext = from c in _context.Docs
                                        select c;
 
-            applicationDbContext = applicationDbContext.Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
+            applicationDbContext = applicationDbContext
+                .Where(x => x.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .OrderByDescending(x => x.Id);
 
             return View(await applicationDbContext.Include(d => d.User).ToListAsync());
         }

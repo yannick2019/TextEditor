@@ -24,11 +24,11 @@
             <label asp-for="Input.ConfirmPassword">Confirm Password</label>
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
-        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-dark">Register</button>
 
         <div class="mt-2">
             <p>
-                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Already have an account? Log in</a>
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-black">Already have an account? Log in</a>
             </p>
         </div>
     </form>

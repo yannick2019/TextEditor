@@ -21,3 +21,8 @@ body {
     font-family: "Open Sans", sans-serif;
     margin-bottom: 60px;
 }
+
+.active-link {
+    border: 1px solid black;
+    color: white;
+}

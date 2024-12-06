@@ -24,15 +24,18 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Update" class="btn btn-primary" />
-                <a class="btn btn-danger m-2" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <input type="submit" value="Update" class="btn btn-dark" />
+                <a class="btn btn-secondary m-2" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" style="text-decoration: none;">
+        <img src="~/images/go-back-arrow.png" alt="Go back arrow" width="14px" height="14px" />
+        <span class="text-black">Back to List</span>
+    </a>
 </div>
 
 @section Scripts {
